@@ -1,16 +1,15 @@
-require 'omniauth-oauth'
+require 'omniauth-oauth2'
 require 'multi_json'
 
 module OmniAuth
   module Strategies
-    class Bitbucket < OmniAuth::Strategies::OAuth
+    class Bitbucket < OmniAuth::Strategies::OAuth2
       # This is where you pass the options you would pass when
       # initializing your consumer from the OAuth gem.
       option :client_options, {
         :site => 'https://bitbucket.org',
-        :request_token_path => '/api/1.0/oauth/request_token',
-        :authorize_path     => '/api/1.0/oauth/authenticate',
-        :access_token_path  => '/api/1.0/oauth/access_token'
+        :authorize_url => 'https://bitbucket.org/site/oauth2/authorize',
+        :token_url => 'https://bitbucket.org/site/oauth2/access_token'
       }
 
       # These are called after authentication has succeeded. If
@@ -28,16 +27,16 @@ module OmniAuth
         }
       end
 
+      def callback_url
+        full_host + script_name + callback_path
+      end
+
       def raw_info
         @raw_info ||= begin
-                        ri = ::MultiJson.decode(access_token.get('/api/2.0/user').body)
-                        emails = ::MultiJson.decode(access_token.get('/api/2.0/user/emails').body)
-                        email_hash = emails['values'].find { |email| email['is_primary'] && email['type'] == 'email' }
-                        if email_hash
-                          ri.merge('email' => email_hash['email'])
-                        else
-                          ri
-                        end
+                        ri = MultiJson.decode(access_token.get('/api/2.0/user').body)
+                        email = MultiJson.decode(access_token.get('/api/2.0/user/emails').body)['values'].find { |email| email['is_primary'] }
+                        ri.merge!('email' => email['email']) if email
+                        ri
                       end
       end
     end
