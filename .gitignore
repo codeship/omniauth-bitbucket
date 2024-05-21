@@ -1,5 +1,5 @@
 *.gem
+.DS_Store
 .bundle
 Gemfile.lock
 pkg/*
-.DS_Store
