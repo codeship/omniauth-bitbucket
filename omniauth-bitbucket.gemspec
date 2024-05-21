@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Omniauth::Bitbucket::VERSION
   s.authors     = ["Dingding Ye"]
   s.email       = ["yedingding@gmail.com"]
-  s.homepage    = "https://github.com/sishen/omniauth-bitbucket"
+  s.homepage    = "https://github.com/codeship/omniauth-bitbucket"
   s.summary     = %q{OmniAuth strategy for Bitbucket.}
   s.description = %q{OmniAuth strategy for Bitbucket.}
 
@@ -17,11 +17,11 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
-  s.add_dependency 'omniauth', '~> 1.1'
-  s.add_dependency 'omniauth-oauth', '~> 1.0'
-  s.add_dependency 'multi_json', '~> 1.7'
+  s.add_dependency 'omniauth', '~> 2.0'
+  s.add_dependency 'omniauth-oauth2', '~> 1.7'
+  s.add_dependency 'multi_json', '>= 1.15.0', '< 2.0'
 
-  s.add_development_dependency 'rspec', '~> 2.7'
+  s.add_development_dependency 'rspec', '~> 3'
   s.add_development_dependency 'rack-test'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'webmock'
