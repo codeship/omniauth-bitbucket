@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Omniauth::Bitbucket::VERSION
   s.authors     = ["Dingding Ye"]
   s.email       = ["yedingding@gmail.com"]
-  s.homepage    = "https://github.com/sishen/omniauth-bitbucket"
+  s.homepage    = "https://github.com/codeship/omniauth-bitbucket"
   s.summary     = %q{OmniAuth strategy for Bitbucket.}
   s.description = %q{OmniAuth strategy for Bitbucket.}
 
