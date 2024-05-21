@@ -30,14 +30,10 @@ module OmniAuth
 
       def raw_info
         @raw_info ||= begin
-                        ri = ::MultiJson.decode(access_token.get('/api/2.0/user').body)
-                        emails = ::MultiJson.decode(access_token.get('/api/2.0/user/emails').body)
-                        email_hash = emails['values'].find { |email| email['is_primary'] && email['type'] == 'email' }
-                        if email_hash
-                          ri.merge('email' => email_hash['email'])
-                        else
-                          ri
-                        end
+                        ri = MultiJson.decode(access_token.get('/api/2.0/user').body)
+                        email = MultiJson.decode(access_token.get('/api/2.0/user/emails').body)['values'].find { |email| email['is_primary'] }
+                        ri.merge!('email' => email['email']) if email
+                        ri
                       end
       end
     end
